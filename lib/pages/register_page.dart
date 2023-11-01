@@ -63,21 +63,22 @@ class RegisterPage extends StatelessWidget {
             const SizedBox(height: 25),
 
             // TextField do Redefinir Senha
-            MyTextField(
+            EmailTextField(
               controller: _nomeController,
               hintText: 'Nome',
               obscureText: false,
               prefixIcon: const Icon(Icons.person),
             ),
             const SizedBox(height: 10),
-            MyTextField(
+            EmailTextField(
               controller: _emailController,
               hintText: 'E-mail',
               obscureText: false,
               prefixIcon: const Icon(Icons.person),
             ),
             const SizedBox(height: 10),
-            MyTextField(
+            //Password
+            EmailTextField(
               controller: _senhaController,
               hintText: "Senha",
               obscureText: true,
@@ -88,14 +89,17 @@ class RegisterPage extends StatelessWidget {
             const SizedBox(height: 20),
 
             // Botão
-            MyButton(onTap: () async {
-              Register().registerUser(
-                context,
-                _nomeController.text,
-                _emailController.text,
-                _senhaController.text,
-              );
-            }),
+            MyButton(
+              onTap: () async {
+                Register().registerUser(
+                  context,
+                  _nomeController.text,
+                  _emailController.text,
+                  _senhaController.text,
+                );
+              },
+              texto: "Registrar",
+            ),
           ],
         ),
       ),

@@ -19,11 +19,18 @@ class Register extends GetxController {
     var res = await post(_url, body: jsonEncode(body), headers: headers);
 
     if (res.statusCode == 201) {
-      Get.dialog(const RegisterDialog(
-          title: "Tudo certo", message: "Seu usuário foi criado!"));
+      // 201 = created
+      Get.dialog(RegisterDialog(
+        title: ApiConstants.allRight,
+        message: ApiConstants.userCreated,
+      ));
     } else {
       Get.dialog(
-          const RegisterDialog(title: "Erro", message: "Ocorreu algum erro!"));
+        RegisterDialog(
+          title: ApiConstants.error,
+          message: ApiConstants.errorMessage,
+        ),
+      );
     }
   }
 }

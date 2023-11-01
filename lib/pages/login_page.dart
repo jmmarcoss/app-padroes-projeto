@@ -1,5 +1,6 @@
 import 'package:app_padroes/components/my_button.dart';
 import 'package:app_padroes/components/my_textfield_email.dart';
+import 'package:app_padroes/constants/api_constants.dart';
 import 'package:app_padroes/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,7 +35,7 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 50),
 
                 // username textfield
-                MyTextField(
+                EmailTextField(
                   controller: usernameController,
                   hintText: 'E-mail',
                   obscureText: false,
@@ -44,7 +45,7 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 10),
 
                 // password textfield
-                MyTextField(
+                EmailTextField(
                   controller: passwordController,
                   hintText: 'Senha',
                   obscureText: true,
@@ -56,6 +57,7 @@ class LoginPage extends StatelessWidget {
                 // sign in button
                 MyButton(
                   onTap: signUserIn,
+                  texto: ApiConstants.buttonSignIn,
                 ),
 
                 const SizedBox(height: 10),
@@ -70,7 +72,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     TextButton(
                         onPressed: () {
-                          Get.to(RegisterPage());
+                          Get.to(() => RegisterPage());
                         },
                         child: const Text(
                           'Registre-se agora',
