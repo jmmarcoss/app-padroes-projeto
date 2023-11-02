@@ -1,8 +1,10 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class MyButton extends StatelessWidget {
-  final Function()? onTap;
-  String texto;
+  Function()? onTap;
+  final String texto;
 
   MyButton({super.key, required this.onTap, required this.texto});
 

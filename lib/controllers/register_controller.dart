@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:app_padroes/components/register_dialog.dart';
 import 'package:app_padroes/constants/api_constants.dart';
+import 'package:app_padroes/constants/strings_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
@@ -21,14 +22,14 @@ class Register extends GetxController {
     if (res.statusCode == 201) {
       // 201 = created
       Get.dialog(RegisterDialog(
-        title: ApiConstants.allRight,
-        message: ApiConstants.userCreated,
+        title: StringsConstants.allRight,
+        message: StringsConstants.userCreated,
       ));
     } else {
       Get.dialog(
         RegisterDialog(
-          title: ApiConstants.error,
-          message: ApiConstants.errorMessage,
+          title: StringsConstants.error,
+          message: StringsConstants.errorMessage,
         ),
       );
     }

@@ -1,4 +1,5 @@
 import 'package:app_padroes/constants/api_constants.dart';
+import 'package:app_padroes/constants/strings_constants.dart';
 import 'package:app_padroes/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -54,7 +55,7 @@ class RegisterDialog extends StatelessWidget {
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8)))),
-                    child: Text(ApiConstants.ok,
+                    child: Text(StringsConstants.ok,
                         style: const TextStyle(color: Colors.white)),
                   ),
                 ],

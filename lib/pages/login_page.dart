@@ -1,19 +1,24 @@
 import 'package:app_padroes/components/my_button.dart';
 import 'package:app_padroes/components/my_textfield_email.dart';
-import 'package:app_padroes/constants/api_constants.dart';
+import 'package:app_padroes/components/my_textfield_password.dart';
+import 'package:app_padroes/constants/strings_constants.dart';
+import 'package:app_padroes/controllers/login_controller.dart';
 import 'package:app_padroes/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
-  // text editing controllers
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
 
-  // sign user in method
-  void signUserIn() {}
+class _LoginPageState extends State<LoginPage> {
+  // text editing controllers
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _senhaVisivel = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +41,7 @@ class LoginPage extends StatelessWidget {
 
                 // username textfield
                 EmailTextField(
-                  controller: usernameController,
+                  controller: _emailController,
                   hintText: 'E-mail',
                   obscureText: false,
                   prefixIcon: const Icon(Icons.person),
@@ -45,19 +50,34 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 10),
 
                 // password textfield
-                EmailTextField(
-                  controller: passwordController,
+                PasswordTextField(
+                  controller: _passwordController,
                   hintText: 'Senha',
-                  obscureText: true,
                   prefixIcon: const Icon(Icons.lock),
+                  suffixIcon: GestureDetector(
+                    child: Icon(
+                        _senhaVisivel == false
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Colors.grey[500]),
+                    onTap: () {
+                      setState(() {
+                        _senhaVisivel = !_senhaVisivel;
+                      });
+                    },
+                  ),
+                  obscureText: !_senhaVisivel,
                 ),
 
                 const SizedBox(height: 30),
 
                 // sign in button
                 MyButton(
-                  onTap: signUserIn,
-                  texto: ApiConstants.buttonSignIn,
+                  onTap: () async {
+                    LoginController()
+                        .login(_emailController.text, _passwordController.text);
+                  },
+                  texto: StringsConstants.buttonSignIn,
                 ),
 
                 const SizedBox(height: 10),
