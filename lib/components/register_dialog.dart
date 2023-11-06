@@ -1,4 +1,3 @@
-import 'package:app_padroes/constants/api_constants.dart';
 import 'package:app_padroes/constants/strings_constants.dart';
 import 'package:app_padroes/pages/login_page.dart';
 import 'package:flutter/material.dart';

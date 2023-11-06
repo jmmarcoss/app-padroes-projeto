@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:app_padroes/constants/api_constants.dart';
+import 'package:app_padroes/pages/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
@@ -22,14 +23,13 @@ class LoginController extends GetxController {
       String token = json['token'];
       await prefs.setString('token', token);
 
-      debugPrint(token);
-
       Get.showSnackbar(const GetSnackBar(
         title: 'Tudo certo!',
         message: 'Logado com sucesso',
         backgroundColor: Colors.green,
         duration: Duration(seconds: 2),
       ));
+      Get.to(() => HomePage());
     } else if (res.statusCode == 401 || res.statusCode == 404) {
       Get.showSnackbar(const GetSnackBar(
         title: 'Erro!',
