@@ -1,18 +1,25 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:app_padroes/components/my_button.dart';
 import 'package:app_padroes/components/my_textfield_email.dart';
+import 'package:app_padroes/components/my_textfield_password.dart';
 import 'package:app_padroes/controllers/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final _emailController = TextEditingController();
-  final _senhaController = TextEditingController();
+  final _passwordController = TextEditingController();
   final _nomeController = TextEditingController();
+
   late String email;
   late String senha;
   late String nome;
+
+  bool _senhaVisivel = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,20 +48,20 @@ class RegisterPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "cadastro blabla",
+              "Seja bem-vindo!",
               style: TextStyle(
-                fontSize: 25,
+                fontSize: 24,
                 fontWeight: FontWeight.w500,
               ),
               textAlign: TextAlign.center,
             ),
 
             // Espaçamento entre os textos
-            const SizedBox(height: 15),
+            const SizedBox(height: 10),
 
             // Text "Digite seu e-mail" abaixo do cadeado
             const Text(
-              "Digite seu email",
+              "Ficamos felizes em tê-lo conosco.",
               style: TextStyle(fontSize: 16),
               textAlign: TextAlign.center,
             ),
@@ -74,28 +81,39 @@ class RegisterPage extends StatelessWidget {
               controller: _emailController,
               hintText: 'E-mail',
               obscureText: false,
-              prefixIcon: const Icon(Icons.person),
+              prefixIcon: const Icon(Icons.mail),
             ),
             const SizedBox(height: 10),
             //Password
-            EmailTextField(
-              controller: _senhaController,
-              hintText: "Senha",
-              obscureText: true,
-              prefixIcon: const Icon(Icons.visibility_outlined),
+            PasswordTextField(
+              controller: _passwordController,
+              hintText: 'Senha',
+              prefixIcon: const Icon(Icons.lock),
+              suffixIcon: GestureDetector(
+                child: Icon(
+                    _senhaVisivel == false
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                    color: Colors.grey[500]),
+                onTap: () {
+                  setState(() {
+                    _senhaVisivel = !_senhaVisivel;
+                  });
+                },
+              ),
+              obscureText: !_senhaVisivel,
             ),
-
             // Separador
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
 
             // Botão
             MyButton(
               onTap: () async {
-                Register().registerUser(
+                RegisterController().registerUser(
                   context,
                   _nomeController.text,
                   _emailController.text,
-                  _senhaController.text,
+                  _passwordController.text,
                 );
               },
               texto: "Registrar",

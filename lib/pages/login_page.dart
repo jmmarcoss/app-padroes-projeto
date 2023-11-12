@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
                   controller: _emailController,
                   hintText: 'E-mail',
                   obscureText: false,
-                  prefixIcon: const Icon(Icons.person),
+                  prefixIcon: const Icon(Icons.mail),
                 ),
 
                 const SizedBox(height: 10),

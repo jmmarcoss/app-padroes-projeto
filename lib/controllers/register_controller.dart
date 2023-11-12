@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 
-class Register extends GetxController {
+class RegisterController extends GetxController {
   final Uri _url = Uri.parse(ApiConstants.baseUrl + ApiConstants.registerUrl);
 
   void registerUser(BuildContext context, nome, email, senha) async {

@@ -1,0 +1,123 @@
+@startuml
+set namespaceSeparator ::
+
+class "app_padroes::components::my_button.dart::MyButton" {
+  +dynamic Function()? onTap
+  +String texto
+  +Widget build()
+}
+
+"app_padroes::components::my_button.dart::MyButton" o-- "null::dynamic Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "app_padroes::components::my_button.dart::MyButton"
+
+class "app_padroes::components::my_textfield_email.dart::EmailTextField" {
+  +dynamic controller
+  +String hintText
+  +bool obscureText
+  +Widget? prefixIcon
+  +Widget build()
+}
+
+"app_padroes::components::my_textfield_email.dart::EmailTextField" o-- "flutter::src::widgets::framework.dart::Widget"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "app_padroes::components::my_textfield_email.dart::EmailTextField"
+
+class "app_padroes::components::my_textfield_password.dart::PasswordTextField" {
+  +dynamic controller
+  +String hintText
+  +bool obscureText
+  +Widget? prefixIcon
+  +Widget? suffixIcon
+  +Widget build()
+}
+
+"app_padroes::components::my_textfield_password.dart::PasswordTextField" o-- "flutter::src::widgets::framework.dart::Widget"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "app_padroes::components::my_textfield_password.dart::PasswordTextField"
+
+class "app_padroes::components::register_dialog.dart::RegisterDialog" {
+  +String title
+  +String message
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "app_padroes::components::register_dialog.dart::RegisterDialog"
+
+class "app_padroes::constants::api_constants.dart::ApiConstants" {
+  {static} +String baseUrl
+  {static} +String registerUrl
+  {static} +String login
+}
+
+class "app_padroes::constants::strings_constants.dart::StringsConstants" {
+  {static} +String buttonSignIn
+  {static} +String error
+  {static} +String errorMessage
+  {static} +String ok
+  {static} +String allRight
+  {static} +String userCreated
+}
+
+class "app_padroes::controllers::login_controller.dart::LoginController" {
+  -Uri _url
+  -dynamic _prefs
+  +void login()
+}
+
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "app_padroes::controllers::login_controller.dart::LoginController"
+
+class "app_padroes::controllers::register_controller.dart::Register" {
+  -Uri _url
+  +void registerUser()
+}
+
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "app_padroes::controllers::register_controller.dart::Register"
+
+class "app_padroes::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "app_padroes::main.dart::MyApp"
+
+class "app_padroes::pages::homepage.dart::HomePage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "app_padroes::pages::homepage.dart::HomePage"
+
+class "app_padroes::pages::login_page.dart::LoginPage" {
+  +State<LoginPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "app_padroes::pages::login_page.dart::LoginPage"
+
+class "app_padroes::pages::login_page.dart::_LoginPageState" {
+  -TextEditingController _emailController
+  -TextEditingController _passwordController
+  -bool _senhaVisivel
+  +Widget build()
+}
+
+"app_padroes::pages::login_page.dart::_LoginPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "app_padroes::pages::login_page.dart::_LoginPageState"
+
+class "app_padroes::pages::register_page.dart::RegisterPage" {
+  +State<RegisterPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "app_padroes::pages::register_page.dart::RegisterPage"
+
+class "app_padroes::pages::register_page.dart::_RegisterPageState" {
+  -TextEditingController _emailController
+  -TextEditingController _passwordController
+  -TextEditingController _nomeController
+  +String email
+  +String senha
+  +String nome
+  -bool _senhaVisivel
+  +Widget build()
+}
+
+"app_padroes::pages::register_page.dart::_RegisterPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "app_padroes::pages::register_page.dart::_RegisterPageState"
+
+
+@enduml
