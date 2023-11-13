@@ -1,43 +1,18 @@
+import 'package:app_padroes/nav_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
-
-      // Barra do App
-      appBar: AppBar(
-        title: const Text(
-          "HomePage",
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.blue,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Get.back(),
-        ),
-      ),
-
-      // Conteúdo da Tela, com Scroll
-      body: const SingleChildScrollView(
-        padding: EdgeInsets.only(top: 50.0),
-
-        // color: Colors.white,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image(
-                image: AssetImage('assets/images/PRATELEIRA.png'),
-                height: 200,
-                width: 200,
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: NavMenu(),
     );
   }
 }
