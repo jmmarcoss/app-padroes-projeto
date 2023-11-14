@@ -1,3 +1,4 @@
+import 'package:app_padroes/pages/user_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -38,6 +39,6 @@ class NavController extends GetxController {
     Container(color: Colors.green),
     Container(color: Colors.purple),
     Container(color: Colors.red),
-    Container(color: Colors.yellow),
+    UserInformationPage(),
   ];
 }
