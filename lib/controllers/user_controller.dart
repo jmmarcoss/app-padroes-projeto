@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:app_padroes/constants/api_constants.dart';
 import 'package:app_padroes/pages/homepage.dart';
@@ -7,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginController extends GetxController {
+class UserController extends GetxController {
   final Uri _url = Uri.parse(ApiConstants.baseUrl + ApiConstants.login);
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
@@ -20,16 +21,21 @@ class LoginController extends GetxController {
       final json = jsonDecode(res.body);
       final SharedPreferences prefs = await _prefs;
 
-      String token = json['token'];
-      await prefs.setString('token', token);
+      String accessToken = json['token'];
 
-      Get.showSnackbar(const GetSnackBar(
+      await prefs.setString('email', email.trim());
+      await prefs.setString('token', accessToken);
+
+      String? userEmail = prefs.getString('email');
+      String? tokenAccess = prefs.getString('token');
+
+      Get.showSnackbar(GetSnackBar(
         title: 'Tudo certo!',
-        message: 'Logado com sucesso',
+        message: '$tokenAccess',
         backgroundColor: Colors.green,
         duration: Duration(seconds: 2),
       ));
-      Get.to(() => HomePage());
+      Get.to(() => const HomePage());
     } else if (res.statusCode == 401 || res.statusCode == 404) {
       Get.showSnackbar(const GetSnackBar(
         title: 'Erro!',
@@ -44,6 +50,23 @@ class LoginController extends GetxController {
         backgroundColor: Colors.red,
         duration: Duration(seconds: 2),
       ));
+    }
+  }
+
+  void getUserInformation() async {
+    SharedPreferences prefs = await _prefs;
+
+    int? email = await prefs.getInt('email');
+    String? token = prefs.getString('token');
+
+    if (email != null) {
+      Uri url = Uri.parse(
+          ApiConstants.baseUrl + ApiConstants.userUrl + email.toString());
+
+      Map<String, String> headers = {
+        'Authorization': 'Bearer $token',
+        'Content-type': 'application/json'
+      };
     }
   }
 }
