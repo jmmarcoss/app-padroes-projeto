@@ -1,3 +1,4 @@
+import 'package:app_padroes/pages/search_page.dart';
 import 'package:app_padroes/pages/user_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,7 +38,7 @@ class NavController extends GetxController {
 
   final screens = [
     Container(color: Colors.green),
-    Container(color: Colors.purple),
+    const SearchPage(),
     Container(color: Colors.red),
     UserInformationPage(),
   ];

@@ -26,19 +26,6 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
 
-      // Barra do App
-      appBar: AppBar(
-        title: const Text(
-          "Cadastro",
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.blue,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Get.back(),
-        ),
-      ),
-
       // Conteúdo da Tela, com Scroll
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 50.0),
@@ -47,13 +34,14 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 75),
             const Text(
               "Seja bem-vindo!",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w500,
               ),
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.left,
             ),
 
             // Espaçamento entre os textos
