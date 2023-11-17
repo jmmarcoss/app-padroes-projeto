@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:app_padroes/constants/api_constants.dart';
+import 'package:app_padroes/components/register_dialog.dart';
+import 'package:app_padroes/constants/strings_constants.dart';
+import 'package:app_padroes/exceptions/unexpected_exception.dart';
 import 'package:app_padroes/models/user.dart';
 import 'package:app_padroes/pages/homepage.dart';
 import 'package:flutter/material.dart';
@@ -51,52 +54,58 @@ class UserController extends GetxController {
     }
   }
 
-  // Future<Map<String, dynamic>> getUserInformation() async {
-  //   SharedPreferences prefs = await _prefs;
-
-  //   String? token = prefs.getString('token');
-  //   int? email = prefs.getInt('email');
-
-  //   if (email != null) {
-  //     Uri url = Uri.parse(
-  //         ApiConstants.baseUrl + ApiConstants.userUrl + email.toString());
-
-  //     Map<String, String> headers = {
-  //       'Authorization': 'Bearer $token',
-  //       'Content-type': 'application/json'
-  //     };
-
-  //     final res = await get(url, headers: headers);
-  //     prefs.setString('usuario', res.body);
-
-  //     if (res.statusCode == 200) {
-  //       return json.decode(res.body);
-  //     } else {
-  //       return null;
-  //     }
-  //   }
-  // }
-
-  Future<Map<String, dynamic>?> getUsuario() async {
-    SharedPreferences prefs = await _prefs;
-    String? token = prefs.getString('token');
-    String? email = prefs.getString('email');
-
-    Uri url = Uri.parse(
-        ApiConstants.baseUrl + ApiConstants.userUrl + email.toString());
-
-    Map<String, String> headers = {
-      'Authorization': 'Bearer $token',
-      'Content-type': 'application/json'
+  void registerUser(BuildContext context, nome, email, senha) async {
+    final Uri url = Uri.parse(ApiConstants.baseUrl + ApiConstants.registerUrl);
+    var headers = {'Content-Type': 'application/json'};
+    Map body = {
+      'nome': nome.trim(),
+      'email': email.trim(),
+      'senha': senha.trim()
     };
+    var res = await post(url, body: jsonEncode(body), headers: headers);
 
-    final res = await post(url, headers: headers);
-    prefs.setString('usuario', res.body);
-
-    if (res.statusCode == 200) {
-      return json.decode(res.body);
+    if (res.statusCode == 201) {
+      // 201 = created
+      Get.dialog(RegisterDialog(
+        title: StringsConstants.allRight,
+        message: StringsConstants.userCreated,
+      ));
     } else {
-      return null;
+      Get.dialog(
+        RegisterDialog(
+          title: StringsConstants.error,
+          message: StringsConstants.errorMessage,
+        ),
+      );
     }
+  }
+
+  Future<User> userInformation() async {
+    try {
+      SharedPreferences prefs = await _prefs;
+
+      String? token = prefs.getString('token');
+      String? email = prefs.getString('email');
+
+      if (email != null) {
+        Uri url = Uri.parse(
+            ApiConstants.baseUrl + ApiConstants.userUrl + email.toString());
+
+        Map<String, String> headers = {
+          'Authorization': 'Bearer $token',
+          'Content-type': 'application/json'
+        };
+        var res = await post(url, headers: headers);
+        prefs.setString('usuario', res.body);
+
+        if (res.statusCode == 200) {
+          return User.fromJson(jsonDecode(res.body));
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    throw UnexpectedException();
   }
 }

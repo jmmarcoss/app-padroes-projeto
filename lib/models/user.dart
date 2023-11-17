@@ -1,42 +1,30 @@
 class User {
-  late int _id;
-  late String _nome;
-  late String _email;
-  late double _tempoMedioLeitura;
+  late int id;
+  late String nome;
+  late String email;
 
   User({
-    int? id,
-    required String nome,
-    required String email,
-    double? tempoMedioLeitura,
+    required id,
+    required nome,
+    required email,
   }) {
-    _id = id!;
-    _nome = nome;
-    _email = email;
-    _tempoMedioLeitura = tempoMedioLeitura!;
+    nome = nome;
+    email = email;
   }
 
   static User fromJson(Map<String, dynamic> json) {
-    return User(
-        id: json['id'],
-        nome: json['nome'],
-        email: json['email'],
-        tempoMedioLeitura: json['tempoMedioLeitura']);
-  }
+    int id = json['id'] as int;
+    String nome = json['nome'] as String;
+    String email = json['email'] as String;
 
-  int get getId {
-    return _id;
+    return User(id: id, nome: nome, email: email);
   }
 
   String get getNome {
-    return _nome;
+    return nome;
   }
 
   String get getEmail {
-    return _email;
-  }
-
-  double get getTempoMedioLeitura {
-    return _tempoMedioLeitura;
+    return email;
   }
 }

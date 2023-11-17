@@ -3,7 +3,6 @@ import 'package:app_padroes/components/my_textfield_email.dart';
 import 'package:app_padroes/components/my_textfield_password.dart';
 import 'package:app_padroes/controllers/register_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
