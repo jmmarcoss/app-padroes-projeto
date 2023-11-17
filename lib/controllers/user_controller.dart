@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:app_padroes/constants/api_constants.dart';
+import 'package:app_padroes/models/user.dart';
 import 'package:app_padroes/pages/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,29 +9,27 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserController extends GetxController {
-  final Uri _url = Uri.parse(ApiConstants.baseUrl + ApiConstants.login);
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   void login(String email, String password) async {
+    final Uri url = Uri.parse(ApiConstants.baseUrl + ApiConstants.login);
+
     var headers = {'Content-Type': 'application/json'};
     Map body = {'email': email.trim(), 'senha': password.trim()};
-    var res = await post(_url, body: jsonEncode(body), headers: headers);
+    var res = await post(url, body: jsonEncode(body), headers: headers);
 
     if (res.statusCode == 200) {
       final json = jsonDecode(res.body);
       final SharedPreferences prefs = await _prefs;
 
-      String accessToken = json['token'];
+      String token = json['token'];
 
       await prefs.setString('email', email.trim());
-      await prefs.setString('token', accessToken);
+      await prefs.setString('token', token);
 
-      String? userEmail = prefs.getString('email');
-      String? tokenAccess = prefs.getString('token');
-
-      Get.showSnackbar(GetSnackBar(
+      Get.showSnackbar(const GetSnackBar(
         title: 'Tudo certo!',
-        message: '$tokenAccess',
+        message: 'Logado com sucesso',
         backgroundColor: Colors.green,
         duration: Duration(seconds: 2),
       ));
@@ -53,20 +51,52 @@ class UserController extends GetxController {
     }
   }
 
-  void getUserInformation() async {
+  // Future<Map<String, dynamic>> getUserInformation() async {
+  //   SharedPreferences prefs = await _prefs;
+
+  //   String? token = prefs.getString('token');
+  //   int? email = prefs.getInt('email');
+
+  //   if (email != null) {
+  //     Uri url = Uri.parse(
+  //         ApiConstants.baseUrl + ApiConstants.userUrl + email.toString());
+
+  //     Map<String, String> headers = {
+  //       'Authorization': 'Bearer $token',
+  //       'Content-type': 'application/json'
+  //     };
+
+  //     final res = await get(url, headers: headers);
+  //     prefs.setString('usuario', res.body);
+
+  //     if (res.statusCode == 200) {
+  //       return json.decode(res.body);
+  //     } else {
+  //       return null;
+  //     }
+  //   }
+  // }
+
+  Future<Map<String, dynamic>?> getUsuario() async {
     SharedPreferences prefs = await _prefs;
-
-    int? email = await prefs.getInt('email');
     String? token = prefs.getString('token');
+    String? email = prefs.getString('email');
 
-    if (email != null) {
-      Uri url = Uri.parse(
-          ApiConstants.baseUrl + ApiConstants.userUrl + email.toString());
+    Uri url = Uri.parse(
+        ApiConstants.baseUrl + ApiConstants.userUrl + email.toString());
 
-      Map<String, String> headers = {
-        'Authorization': 'Bearer $token',
-        'Content-type': 'application/json'
-      };
+    Map<String, String> headers = {
+      'Authorization': 'Bearer $token',
+      'Content-type': 'application/json'
+    };
+
+    final res = await post(url, headers: headers);
+    prefs.setString('usuario', res.body);
+
+    if (res.statusCode == 200) {
+      return json.decode(res.body);
+    } else {
+      return null;
     }
   }
 }

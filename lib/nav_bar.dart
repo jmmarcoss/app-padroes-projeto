@@ -40,6 +40,6 @@ class NavController extends GetxController {
     Container(color: Colors.green),
     const SearchPage(),
     Container(color: Colors.red),
-    UserInformationPage(),
+    UserPage(),
   ];
 }

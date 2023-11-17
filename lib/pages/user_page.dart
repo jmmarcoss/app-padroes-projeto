@@ -1,17 +1,37 @@
-import 'package:app_padroes/models/user.dart';
+import 'package:app_padroes/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class UserInformationPage extends StatelessWidget {
-  late final User usuario;
+class UserPage extends StatefulWidget {
+  const UserPage({super.key});
 
-  // UserInformationPage({required this.usuario});
+  @override
+  State<UserPage> createState() => _UserPageState();
+}
+
+class _UserPageState extends State<UserPage> {
+  final Map<String, dynamic>? _usuario =
+      UserController().getUsuario() as Map<String, dynamic>?;
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(
-        child: Text('po'),
+    if (_usuario == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    final name = _usuario!['name'];
+    final email = _usuario!['email'];
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('User Information'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(name, style: const TextStyle(fontSize: 24)),
+            const SizedBox(height: 20),
+            Text(email, style: const TextStyle(fontSize: 18)),
+          ],
+        ),
       ),
     );
   }
