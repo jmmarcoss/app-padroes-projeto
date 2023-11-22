@@ -6,6 +6,7 @@ import 'package:app_padroes/constants/strings_constants.dart';
 import 'package:app_padroes/exceptions/unexpected_exception.dart';
 import 'package:app_padroes/models/user.dart';
 import 'package:app_padroes/pages/homepage.dart';
+import 'package:app_padroes/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
@@ -98,8 +99,10 @@ class UserController extends GetxController {
         var res = await post(url, headers: headers);
         prefs.setString('usuario', res.body);
 
-        if (res.statusCode == 200) {
-          return User.fromJson(jsonDecode(res.body));
+        if (res.statusCode == 302) {
+          final json = jsonDecode(res.body);
+          User usuario = User.fromJson(json);
+          return usuario;
         }
       }
     } catch (e) {
@@ -107,5 +110,22 @@ class UserController extends GetxController {
     }
 
     throw UnexpectedException();
+  }
+
+  Future<void> logout() async {
+    SharedPreferences prefs = await _prefs;
+    String? token = prefs.getString('accessToken');
+
+    Uri _url = Uri.parse(ApiConstants.baseUrl + ApiConstants.logout);
+
+    Map<String, String> headers = {
+      'Authorization': 'Bearer $token',
+      'Content-type': 'application/json'
+    };
+
+    await get(_url, headers: headers);
+    await prefs.clear();
+
+    Get.offAll(LoginPage());
   }
 }

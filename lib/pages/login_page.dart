@@ -73,12 +73,12 @@ class _LoginPageState extends State<LoginPage> {
 
                 // sign in button
                 MyButton(
-                  onTap: () async {
-                    UserController()
-                        .login(_emailController.text, _passwordController.text);
-                  },
-                  texto: StringsConstants.buttonSignIn,
-                ),
+                    onTap: () async {
+                      UserController().login(
+                          _emailController.text, _passwordController.text);
+                    },
+                    texto: StringsConstants.buttonSignIn,
+                    color: Colors.black),
 
                 const SizedBox(height: 10),
 

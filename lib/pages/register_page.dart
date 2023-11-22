@@ -104,6 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 );
               },
               texto: "Registrar",
+              color: Colors.black,
             ),
           ],
         ),

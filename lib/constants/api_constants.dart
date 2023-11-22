@@ -3,4 +3,5 @@ class ApiConstants {
   static String registerUrl = '/usuario/cadastro';
   static String login = '/usuario/login';
   static String userUrl = '/usuario/';
+  static String logout = '/logout';
 }

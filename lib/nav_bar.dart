@@ -1,3 +1,5 @@
+import 'package:app_padroes/controllers/user_controller.dart';
+import 'package:app_padroes/models/user.dart';
 import 'package:app_padroes/pages/search_page.dart';
 import 'package:app_padroes/pages/user_page.dart';
 import 'package:flutter/material.dart';

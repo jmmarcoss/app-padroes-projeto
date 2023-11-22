@@ -1,15 +1,16 @@
 class User {
-  late int id;
-  late String nome;
-  late String email;
+  late int _id;
+  late String _nome;
+  late String _email;
 
   User({
     required id,
     required nome,
     required email,
   }) {
-    nome = nome;
-    email = email;
+    this._id = id;
+    this._nome = nome;
+    this._email = email;
   }
 
   static User fromJson(Map<String, dynamic> json) {
@@ -20,11 +21,15 @@ class User {
     return User(id: id, nome: nome, email: email);
   }
 
+  int get getId {
+    return this._id;
+  }
+
   String get getNome {
-    return nome;
+    return this._nome;
   }
 
   String get getEmail {
-    return email;
+    return this._email;
   }
 }
