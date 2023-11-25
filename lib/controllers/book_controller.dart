@@ -14,53 +14,35 @@ class BookController extends GetxController {
   final Uri _url = Uri.parse(ApiConstants.baseUrl + ApiConstants.book);
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  void registerUser(BuildContext context, nome, email, senha) async {
-    var headers = {'Content-Type': 'application/json'};
-    Map body = {
-      'nome': nome.trim(),
-      'email': email.trim(),
-      'senha': senha.trim()
-    };
-    var res = await post(_url, body: jsonEncode(body), headers: headers);
-
-    if (res.statusCode == 201) {
-      // 201 = created
-      Get.dialog(RegisterDialog(
-        title: StringsConstants.allRight,
-        message: StringsConstants.userCreated,
-      ));
-    } else {
-      Get.dialog(
-        RegisterDialog(
-          title: StringsConstants.error,
-          message: StringsConstants.errorMessage,
-        ),
-      );
-    }
-  }
-
   Future<List<Book>> allBooks() async {
     try {
       SharedPreferences prefs = await _prefs;
-
       String? token = prefs.getString('token');
       Uri url = Uri.parse(ApiConstants.baseUrl + ApiConstants.book);
 
       Map<String, String> headers = {
         'Authorization': 'Bearer $token',
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
       };
-      var res = await get(url, headers: headers);
 
-      if (res.statusCode == 200) {
-        List<Book> livros = jsonDecode(res.body).map((livro) {
-          return Book.fromJson(livro);
+      var response = await get(url, headers: headers);
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonList = jsonDecode(utf8.decode(response.bodyBytes));
+
+        List<Book> books = jsonList.map((jsonBook) {
+          return Book.fromJson(jsonBook);
         }).toList();
 
-        return livros;
+        return books;
+      } else {
+        // Handle other status codes if needed
+        throw Exception('Failed to load books');
       }
-    } catch (e) {}
-
-    throw UnexpectedException();
+    } catch (e) {
+      // Handle exceptions
+      print('Error: $e');
+      throw UnexpectedException();
+    }
   }
 }

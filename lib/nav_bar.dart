@@ -40,7 +40,7 @@ class NavController extends GetxController {
   final Rx<int> selectIndex = 0.obs;
 
   final screens = [
-    const HomePage(),
+    HomePage(),
     const SearchPage(),
     Container(color: Colors.red),
     UserPage(),

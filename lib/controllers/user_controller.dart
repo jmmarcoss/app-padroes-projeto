@@ -128,4 +128,8 @@ class UserController extends GetxController {
 
     Get.offAll(LoginPage());
   }
+
+  Future<void> deleteAccount() async {
+    // todo
+  }
 }

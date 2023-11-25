@@ -6,34 +6,37 @@ class Book {
   late int _paginas;
   late String _titulo;
   late String _urlImg;
+  late String _descricao;
 
   Book(
-      {required id,
+      {required int id,
       required String autor,
       required String categoria,
       required DateTime dataDePublicacao,
       required int paginas,
       required String titulo,
-      required String urlImg}) {
-    _id = id!;
+      required String urlImg,
+      required String descricao}) {
+    _id = id;
     _autor = autor;
     _categoria = categoria;
     _dataDePublicacao = dataDePublicacao;
     _paginas = paginas;
     _titulo = titulo;
     _urlImg = urlImg;
+    _descricao = descricao;
   }
 
   static Book fromJson(Map<String, dynamic> json) {
     return Book(
-      id: json['id'],
-      titulo: json['titulo'],
-      autor: json['autor'],
-      categoria: json['categoria'],
-      paginas: json['paginas'],
-      dataDePublicacao: DateTime.parse(json['dataDePublicacao']),
-      urlImg: json['urlImg'],
-    );
+        id: json['id'],
+        titulo: json['titulo'],
+        autor: json['autor'],
+        categoria: json['categoria'],
+        paginas: json['paginas'],
+        dataDePublicacao: DateTime.parse(json['dataDePublicacao']),
+        urlImg: json['urlImg'],
+        descricao: json['descricao']);
   }
 
   int get getId {
@@ -62,5 +65,9 @@ class Book {
 
   String get getUrlImg {
     return _urlImg;
+  }
+
+  String get getDescricao {
+    return _descricao;
   }
 }

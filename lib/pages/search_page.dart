@@ -14,21 +14,31 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
+      appBar: AppBar(
         backgroundColor: Colors.grey[300],
-        body: SafeArea(
-            child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 25,
+        elevation: 0.0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Procure por um livro",
+              style: TextStyle(
+                fontSize: 22,
               ),
-              SearchTextField(
+            ),
+            const SizedBox(height: 20),
+            SearchTextField(
                 controller: _searchController,
-                hintText: 'Buscar',
-                prefixIcon: const Icon(Icons.search),
-              ),
-            ],
-          ),
-        )));
+                hintText: "Buscar",
+                prefixIcon: const Icon(Icons.search))
+          ],
+        ),
+      ),
+    );
   }
 }
