@@ -9,10 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserPage extends StatelessWidget {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  void userInformation() async {
-    SharedPreferences prefs = await _prefs;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +24,7 @@ class UserPage extends StatelessWidget {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return Text(
-                        "Bem vindo " + snapshot.data!.getNome,
+                        "Bem vindo " + snapshot.data!.getNome + "!",
                         textAlign: TextAlign.left,
                         style: const TextStyle(
                           fontSize: 25,
@@ -42,7 +38,7 @@ class UserPage extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               const Text(
-                "Ficamos muito felizes em tê-lo conosco!",
+                "Ficamos muito felizes em tê-lo conosco 😊",
                 style: TextStyle(fontSize: 15),
               ),
               const SizedBox(height: 75),

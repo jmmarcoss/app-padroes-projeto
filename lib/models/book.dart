@@ -8,7 +8,7 @@ class Book {
   late String _urlImg;
 
   Book(
-      {int? id,
+      {required id,
       required String autor,
       required String categoria,
       required DateTime dataDePublicacao,
@@ -27,11 +27,11 @@ class Book {
   static Book fromJson(Map<String, dynamic> json) {
     return Book(
       id: json['id'],
+      titulo: json['titulo'],
       autor: json['autor'],
       categoria: json['categoria'],
-      dataDePublicacao: json['dataDePublicacao'],
       paginas: json['paginas'],
-      titulo: json['titulo'],
+      dataDePublicacao: DateTime.parse(json['dataDePublicacao']),
       urlImg: json['urlImg'],
     );
   }

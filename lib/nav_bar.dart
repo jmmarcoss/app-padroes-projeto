@@ -1,5 +1,6 @@
 import 'package:app_padroes/controllers/user_controller.dart';
 import 'package:app_padroes/models/user.dart';
+import 'package:app_padroes/pages/home_page.dart';
 import 'package:app_padroes/pages/search_page.dart';
 import 'package:app_padroes/pages/user_page.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class NavController extends GetxController {
   final Rx<int> selectIndex = 0.obs;
 
   final screens = [
-    Container(color: Colors.green),
+    const HomePage(),
     const SearchPage(),
     Container(color: Colors.red),
     UserPage(),

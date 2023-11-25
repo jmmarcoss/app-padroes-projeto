@@ -5,7 +5,7 @@ import 'package:app_padroes/components/register_dialog.dart';
 import 'package:app_padroes/constants/strings_constants.dart';
 import 'package:app_padroes/exceptions/unexpected_exception.dart';
 import 'package:app_padroes/models/user.dart';
-import 'package:app_padroes/pages/homepage.dart';
+import 'package:app_padroes/pages/nav_page.dart';
 import 'package:app_padroes/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,7 +37,7 @@ class UserController extends GetxController {
         backgroundColor: Colors.green,
         duration: Duration(seconds: 2),
       ));
-      Get.to(() => const HomePage());
+      Get.to(() => const NavPage());
     } else if (res.statusCode == 401 || res.statusCode == 404) {
       Get.showSnackbar(const GetSnackBar(
         title: 'Erro!',
