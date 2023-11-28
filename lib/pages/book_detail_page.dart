@@ -9,13 +9,22 @@ class BookDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        title: Text(book.getTitulo),
+        elevation: 0.0,
+        backgroundColor: Colors.grey[300],
+        title: Text(
+          book.getTitulo,
+          style: const TextStyle(
+            color: Colors.black, // Change the color here
+          ),
+        ),
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            const SizedBox(height: 30),
             Image.network(
               book.getUrlImg,
               height: 300.0,

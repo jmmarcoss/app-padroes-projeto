@@ -1,4 +1,3 @@
-import 'package:app_padroes/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import 'pages/login_page.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';

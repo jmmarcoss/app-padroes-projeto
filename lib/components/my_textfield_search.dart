@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class SearchTextField extends StatelessWidget {
   final controller;
   final String hintText;
-  final Widget? prefixIcon;
+  final Widget? suffixIcon;
 
   const SearchTextField(
       {super.key,
       required this.controller,
       required this.hintText,
-      required this.prefixIcon});
+      required this.suffixIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class SearchTextField extends StatelessWidget {
         filled: true,
         hintText: hintText,
         hintStyle: TextStyle(color: Colors.grey[500]),
-        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
       ),
     );
   }

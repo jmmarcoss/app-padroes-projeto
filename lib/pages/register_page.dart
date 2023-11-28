@@ -2,7 +2,9 @@ import 'package:app_padroes/components/my_button.dart';
 import 'package:app_padroes/components/my_textfield_email.dart';
 import 'package:app_padroes/components/my_textfield_password.dart';
 import 'package:app_padroes/controllers/register_controller.dart';
+import 'package:app_padroes/pages/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -106,6 +108,29 @@ class _RegisterPageState extends State<RegisterPage> {
               texto: "Registrar",
               color: Colors.black,
             ),
+            const SizedBox(height: 10),
+
+            // Não é cadastrado? Registre-se agora
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Já registrado?',
+                  style: TextStyle(color: Colors.grey[700]),
+                ),
+                TextButton(
+                    onPressed: () {
+                      Get.to(() => LoginPage());
+                    },
+                    child: const Text(
+                      'Entrar agora',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )),
+              ],
+            )
           ],
         ),
       ),

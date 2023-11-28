@@ -100,7 +100,7 @@ class UserController extends GetxController {
         prefs.setString('usuario', res.body);
 
         if (res.statusCode == 302) {
-          final json = jsonDecode(res.body);
+          final json = jsonDecode(utf8.decode(res.bodyBytes));
           User usuario = User.fromJson(json);
           return usuario;
         }

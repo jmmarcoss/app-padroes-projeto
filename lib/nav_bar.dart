@@ -1,5 +1,6 @@
 import 'package:app_padroes/controllers/user_controller.dart';
 import 'package:app_padroes/models/user.dart';
+import 'package:app_padroes/pages/bib_page.dart';
 import 'package:app_padroes/pages/home_page.dart';
 import 'package:app_padroes/pages/search_page.dart';
 import 'package:app_padroes/pages/user_page.dart';
@@ -41,8 +42,8 @@ class NavController extends GetxController {
 
   final screens = [
     HomePage(),
-    const SearchPage(),
-    Container(color: Colors.red),
+    PesquisaLivrosScreen(),
+    LibraryPage(),
     UserPage(),
   ];
 }

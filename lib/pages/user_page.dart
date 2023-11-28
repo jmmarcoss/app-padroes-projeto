@@ -4,15 +4,28 @@ import 'package:app_padroes/components/my_button.dart';
 import 'package:app_padroes/controllers/user_controller.dart';
 import 'package:app_padroes/models/user.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPage extends StatelessWidget {
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey[300],
+        appBar: AppBar(
+          title: const Row(
+            children: [
+              Image(
+                image: AssetImage('assets/images/PRATELEIRA.png'),
+                height: 35,
+                width: 35,
+              ),
+              SizedBox(width: 15),
+              Text('Prateleira', style: TextStyle(color: Colors.black)),
+            ],
+          ),
+          automaticallyImplyLeading: false,
+          elevation: 0.0,
+          backgroundColor: Colors.grey[300],
+        ),
         body: SafeArea(
           child: Column(
             children: [
