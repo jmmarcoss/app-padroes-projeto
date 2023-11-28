@@ -15,7 +15,8 @@ class BookCard extends StatelessWidget {
           Get.to(() => BookDetailScreen(book: book));
         },
         child: Container(
-          color: Colors.green[300],
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8), color: Colors.grey[200]),
           width: 150,
           height: 200,
           child: Column(

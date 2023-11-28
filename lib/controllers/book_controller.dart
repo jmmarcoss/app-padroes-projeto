@@ -72,4 +72,35 @@ class BookController extends GetxController {
       throw Exception('Falha na requisição: ${response.statusCode}');
     }
   }
+
+  Future<List<Book>> findByCategoria(String categoria) async {
+    SharedPreferences prefs = await _prefs;
+    String? token = prefs.getString('token');
+    final Uri url = Uri.parse(
+        "${ApiConstants.baseUrl}${ApiConstants.book}/categoria"); // Substitua pela URL do seu backend
+
+    final Map<String, String> headers = {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json',
+    };
+
+    final Map<String, dynamic> requestBody = {
+      'categoria': categoria,
+    };
+
+    final response = await post(
+      url,
+      headers: headers,
+      body: jsonEncode(requestBody),
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> jsonResponse = jsonDecode(utf8.decode(response.bodyBytes));
+      List<Book> livros =
+          jsonResponse.map((item) => Book.fromJson(item)).toList();
+      return livros;
+    } else {
+      throw Exception('Falha na requisição: ${response.statusCode}');
+    }
+  }
 }

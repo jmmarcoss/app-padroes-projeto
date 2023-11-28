@@ -1,16 +1,22 @@
-import 'package:app_padroes/components/book_card.dart';
-import 'package:app_padroes/pages/book_detail_page.dart';
+import 'package:app_padroes/components/adventure_books.dart';
+import 'package:app_padroes/components/all_books.dart';
+import 'package:app_padroes/components/biografia_books.dart';
+import 'package:app_padroes/components/fantasia_books.dart';
+import 'package:app_padroes/components/ficcao_books.dart';
+import 'package:app_padroes/components/poesia_books.dart';
+import 'package:app_padroes/components/romance_books.dart';
+import 'package:app_padroes/components/terror_books.dart';
+
 import 'package:flutter/material.dart';
 import 'package:app_padroes/controllers/book_controller.dart';
-import 'package:app_padroes/models/book.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   @override
-  State<HomePage> createState() => _BookListViewState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _BookListViewState extends State<HomePage> {
+class _HomePageState extends State<HomePage> {
   final BookController _bookController = Get.put(BookController());
 
   @override
@@ -34,49 +40,21 @@ class _BookListViewState extends State<HomePage> {
       ),
       body: Scaffold(
         backgroundColor: Colors.grey[300],
-        body: BookListView(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              BookListView(),
+              RomanceView(),
+              AventuraView(),
+              BiografiaView(),
+              FantasiaView(),
+              FiccaoView(),
+              PoesiaView(),
+              TerrorView()
+            ],
+          ),
+        ),
       ),
-    );
-  }
-}
-
-class BookListView extends StatelessWidget {
-  final BookController _bookController = Get.find();
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Book>>(
-      future: _bookController.allBooks(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (snapshot.hasError) {
-          return const Center(
-            child: Text('Erro ao carregar os livros.'),
-          );
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(
-            child: Text('Nenhum livro encontrado.'),
-          );
-        } else {
-          return GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2),
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              Book book = snapshot.data![index];
-              return GestureDetector(
-                  onTap: () {
-                    // Navegar para a tela de detalhes do livro quando o Card for clicado
-                    Get.to(() => BookDetailScreen(book: book));
-                  },
-                  child: BookCard(book: book));
-            },
-          );
-        }
-      },
     );
   }
 }
