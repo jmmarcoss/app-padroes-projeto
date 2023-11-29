@@ -1,5 +1,3 @@
-import 'package:app_padroes/controllers/user_controller.dart';
-import 'package:app_padroes/models/user.dart';
 import 'package:app_padroes/pages/bib_page.dart';
 import 'package:app_padroes/pages/home_page.dart';
 import 'package:app_padroes/pages/search_page.dart';

@@ -1,18 +1,17 @@
 import 'package:app_padroes/components/all_books.dart';
-import 'package:app_padroes/components/book_card.dart';
-import 'package:app_padroes/pages/book_detail_page.dart';
-import 'package:app_padroes/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app_padroes/controllers/book_controller.dart';
-import 'package:app_padroes/models/book.dart';
 import 'package:get/get.dart';
 
 class LibraryPage extends StatefulWidget {
+  const LibraryPage({super.key});
+
   @override
   State<LibraryPage> createState() => _LibraryPageState();
 }
 
 class _LibraryPageState extends State<LibraryPage> {
+  // ignore: unused_field
   final BookController _bookController = Get.put(BookController());
 
   @override

@@ -26,7 +26,6 @@ class BookCard extends StatelessWidget {
               ListTile(
                 title: Text(book.getTitulo, textAlign: TextAlign.center),
                 subtitle: Text(book.getAutor, textAlign: TextAlign.center),
-                // Pode adicionar mais detalhes conforme necessário
               ),
             ],
           ),

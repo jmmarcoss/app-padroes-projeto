@@ -27,7 +27,9 @@ class UserController extends GetxController {
       final SharedPreferences prefs = await _prefs;
 
       String token = json['token'];
+      int id = json['id'];
 
+      await prefs.setInt('id', id);
       await prefs.setString('email', email.trim());
       await prefs.setString('token', token);
 

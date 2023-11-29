@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // ignore: unused_field
   final BookController _bookController = Get.put(BookController());
 
   @override

@@ -1,7 +1,7 @@
 import 'package:app_padroes/components/my_button.dart';
 import 'package:app_padroes/components/my_textfield_email.dart';
 import 'package:app_padroes/components/my_textfield_password.dart';
-import 'package:app_padroes/controllers/register_controller.dart';
+import 'package:app_padroes/controllers/user_controller.dart';
 import 'package:app_padroes/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -98,7 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
             // Botão
             MyButton(
               onTap: () async {
-                RegisterController().registerUser(
+                UserController().registerUser(
                   context,
                   _nomeController.text,
                   _emailController.text,
