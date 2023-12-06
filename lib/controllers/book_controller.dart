@@ -103,4 +103,45 @@ class BookController extends GetxController {
       throw Exception('Falha na requisição: ${response.statusCode}');
     }
   }
+
+  Future<void> enviarLeitura(int livroId, DateTime dataInicioDeLeitura,
+      DateTime dataTerminoDeLeitura, int minutos, int qntDePaginas) async {
+    SharedPreferences prefs = await _prefs;
+    String? token = prefs.getString('token');
+    int? userId = prefs.getInt('userId');
+
+    final Uri url = Uri.parse(
+        "${ApiConstants.baseUrl}/lendo"); // Substitua pela URL do seu backend
+
+    final Map<String, String> headers = {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json',
+    };
+
+    final Map<String, dynamic> requestBody = {
+      'usuarioId': userId,
+      'livroId': livroId,
+      'dataInicioDeLeitura': dataInicioDeLeitura,
+      'dataTerminoDeLeitura': dataTerminoDeLeitura,
+      'minutos': minutos,
+      'qntDePaginas': qntDePaginas
+    };
+
+    try {
+      final response = await post(
+        url,
+        headers: headers,
+        body: jsonEncode(requestBody),
+      );
+
+      if (response.statusCode == 200) {
+        print('Requisição enviada com sucesso');
+      } else {
+        print(
+            'Falha ao enviar a requisição. Código de resposta: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Erro durante a requisição: $e');
+    }
+  }
 }

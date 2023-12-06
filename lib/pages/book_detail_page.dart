@@ -1,3 +1,6 @@
+import 'package:app_padroes/components/my_button.dart';
+import 'package:app_padroes/components/read_button.dart';
+import 'package:app_padroes/controllers/favorite_controller.dart';
 import 'package:app_padroes/models/book.dart';
 import 'package:flutter/material.dart';
 
@@ -21,27 +24,38 @@ class BookDetailScreen extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const SizedBox(height: 30),
-            Image.network(
-              book.getUrlImg,
-              height: 300.0,
-              width: 210.0,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 20.0),
-            Text('Autor: ${book.getAutor}'),
-            Text('Categoria: ${book.getCategoria}'),
-            Text('Data de Publicação: ${book.getDataDePublicacao}'),
-            Text('Número de Páginas: ${book.getPaginas}'),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18.0),
-              child: Text('Descrição: ${book.getDescricao}'),
-            )
-            // Adicione mais informações conforme necessário
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(height: 30),
+              Image.network(
+                book.getUrlImg,
+                height: 250.0,
+                width: 175.0,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: 20.0),
+              Text('Autor: ${book.getAutor}'),
+              Text('Categoria: ${book.getCategoria}'),
+              Text('Data de Publicação: ${book.getDataDePublicacao}'),
+              Text('Número de Páginas: ${book.getPaginas}'),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                child: Text('Descrição: ${book.getDescricao}'),
+              ),
+              const SizedBox(height: 20.0),
+              MyButton(
+                  onTap: () async {
+                    FavoriteController().favoriteBook(book.getId);
+                  },
+                  texto: "Favoritar",
+                  color: Colors.black),
+              SizedBox(height: 75),
+              BotaoLeitura(livroId: book.getId)
+              // Adicione mais informações conforme necessário
+            ],
+          ),
         ),
       ),
     );

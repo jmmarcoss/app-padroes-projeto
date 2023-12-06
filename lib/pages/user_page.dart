@@ -68,6 +68,42 @@ class UserPage extends StatelessWidget {
                   },
                 ),
               ),
+              SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: FutureBuilder<User>(
+                  future: UserController().userInformation(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data!.getTempoMedioLeitura == 0.0) {
+                        return const Text("Tempo médio de leitura: 00:00");
+                      }
+                      return Text("Tempo médio de leitura: " +
+                          snapshot.data!.getTempoMedioLeitura.toString());
+                    } else {
+                      return Text("00:00");
+                    }
+                  },
+                ),
+              ),
+              SizedBox(height: 15),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: FutureBuilder<User>(
+                  future: UserController().userInformation(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data!.getTempoMedioPagina == 0.0) {
+                        return Text("Tempo médio por Página: 00:00");
+                      }
+                      return Text("Tempo médio por Página: " +
+                          snapshot.data!.getTempoMedioPagina.toString());
+                    } else {
+                      return Text("00:00");
+                    }
+                  },
+                ),
+              ),
               const SizedBox(height: 75),
               MyButton(
                   onTap: () async {

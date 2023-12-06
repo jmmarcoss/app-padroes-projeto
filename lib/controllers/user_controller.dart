@@ -27,9 +27,7 @@ class UserController extends GetxController {
       final SharedPreferences prefs = await _prefs;
 
       String token = json['token'];
-      int id = json['id'];
 
-      await prefs.setInt('id', id);
       await prefs.setString('email', email.trim());
       await prefs.setString('token', token);
 
@@ -104,6 +102,9 @@ class UserController extends GetxController {
         if (res.statusCode == 302) {
           final json = jsonDecode(utf8.decode(res.bodyBytes));
           User usuario = User.fromJson(json);
+
+          prefs.setInt('userId', usuario.getId);
+
           return usuario;
         }
       }
@@ -116,19 +117,15 @@ class UserController extends GetxController {
 
   Future<void> logout() async {
     SharedPreferences prefs = await _prefs;
-    String? token = prefs.getString('accessToken');
 
     Uri _url = Uri.parse(ApiConstants.baseUrl + ApiConstants.logout);
 
-    Map<String, String> headers = {
-      'Authorization': 'Bearer $token',
-      'Content-type': 'application/json'
-    };
+    Map<String, String> headers = {'Content-type': 'application/json'};
 
     await get(_url, headers: headers);
     await prefs.clear();
 
-    Get.offAll(LoginPage());
+    Get.offAll(() => LoginPage());
   }
 
   Future<void> deleteAccount() async {

@@ -1,6 +1,6 @@
-import 'package:app_padroes/components/all_books.dart';
+import 'package:app_padroes/components/favorites_books.dart';
+import 'package:app_padroes/controllers/favorite_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:app_padroes/controllers/book_controller.dart';
 import 'package:get/get.dart';
 
 class LibraryPage extends StatefulWidget {
@@ -12,7 +12,7 @@ class LibraryPage extends StatefulWidget {
 
 class _LibraryPageState extends State<LibraryPage> {
   // ignore: unused_field
-  final BookController _bookController = Get.put(BookController());
+  final FavoriteController _bookController = Get.put(FavoriteController());
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class _LibraryPageState extends State<LibraryPage> {
       ),
       body: Scaffold(
         backgroundColor: Colors.grey[300],
-        body: BookListView(),
+        body: FavoriteBooks(),
       ),
     );
   }
